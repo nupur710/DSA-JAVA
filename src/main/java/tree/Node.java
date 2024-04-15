@@ -34,6 +34,7 @@ public class Node {
         System.out.println();
         System.out.println("Level order traversal: ");
         levelOrderTraversal(root);
+        System.out.println(sum(root,0,50));
     }
 
     //inorder traversal--> left-root-right
@@ -85,5 +86,21 @@ public class Node {
             if(curr.leftChild != null) q.add(curr.leftChild);
             if(curr.rightChild != null) q.add(curr.rightChild);
         }
+    }
+
+    static int sum= 0;
+    public static int sum(Node root, int low, int high) {
+        if(root != null) {
+            if (root.key >= low && root.key <= high) {
+                sum += root.key;
+            }
+            sum(root.leftChild, low, high);
+            sum(root.rightChild, low, high);
+        } return sum;
+    }
+
+    public static int getDepth(Node root) {
+        if(root == null) return 0;
+        return Math.max(getDepth(root.leftChild), getDepth(root.rightChild)) +1;
     }
 }
