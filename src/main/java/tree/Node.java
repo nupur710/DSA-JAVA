@@ -130,4 +130,31 @@ public class Node {
         if(root.leftChild == null && root.rightChild == null) return 1; //this is leaf node
         return leafNodes(root.leftChild) + leafNodes(root.rightChild);
     }
+
+    //get sum of all nodes in key
+    public int sum(Node root) {
+        if(root == null) return 0;
+        return root.key + sum(root.leftChild) + sum(root.rightChild);
+    }
+
+    //cursive function that returns true
+    // if there is a node in the given binary tree with the given value,
+    // and false otherwise. Not BST
+    public boolean valuePresent(Node root, int value) {
+        if(root == null) return false;
+        if(root.key == value) return true;
+        return valuePresent(root.leftChild, value) || valuePresent(root.rightChild, value);
+    }
+
+    //set the value for each node in a binary tree
+    // to be its depth then return the modified tree
+    public BinNode BTsetdepth(BinNode root, int depth)
+    {
+        if(root == null) return null;
+        root.setValue(depth);
+        BTsetdepth(root.left(), depth+1);
+        BTsetdepth(root.right(), depth+1);
+        return root;
+    }
+
 }
