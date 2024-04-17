@@ -103,4 +103,31 @@ public class Node {
         if(root == null) return 0;
         return Math.max(getDepth(root.leftChild), getDepth(root.rightChild)) +1;
     }
+
+    //no of nodes in tree
+    public static int noOfNodes(Node root) {
+        if(root == null) return 0;
+        return 1 + noOfNodes(root.leftChild)+noOfNodes(root.rightChild);
+    }
+
+    //check if the tree satisfies the property that for each node
+    // the sum of the values of its left and right children are equal to the node's value.
+    // If a node has only one child, then the node should have the same value as that child
+    public boolean checkSum(Node root) {
+        if(root == null) {
+            return true;
+        }
+        int nodeValue= root.key, sum= 0;
+        if(root.leftChild != null) sum += root.leftChild.key;
+        if(root.rightChild != null) sum += root.rightChild.key;
+        if(sum != nodeValue) return false;
+        return checkSum(root.leftChild) && checkSum(root.rightChild);
+    }
+
+    //get count of no. of leaf nodes if tree
+    public int leafNodes(Node root) {
+        if(root == null) return 0;
+        if(root.leftChild == null && root.rightChild == null) return 1; //this is leaf node
+        return leafNodes(root.leftChild) + leafNodes(root.rightChild);
+    }
 }
