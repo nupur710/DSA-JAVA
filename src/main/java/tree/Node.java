@@ -156,5 +156,21 @@ public class Node {
         BTsetdepth(root.right(), depth+1);
         return root;
     }
+    
+    // recursive function to return the difference
+    // between the sum of all node values at odd levels
+    // and sum of all node values at even levels
+    public int BTgetdiff(Node root)
+    {
+        return calculateDiff(root, 1);
+    }
+
+    public int calculateDiff(Node root, int level) {
+        if (root == null) return 0;
+        int leftDiff = calculateDiff(root.leftChild, level + 1);
+        int rightDiff = calculateDiff(root.rightChild, level + 1);
+        int nodeValue = (level % 2 == 1) ? root.key : -root.key;
+        return nodeValue + leftDiff + rightDiff;
+    }
 
 }
