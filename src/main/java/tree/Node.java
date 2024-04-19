@@ -169,7 +169,7 @@ public class Node {
         if (root == null) return 0;
         int leftDiff = calculateDiff(root.leftChild, level + 1);
         int rightDiff = calculateDiff(root.rightChild, level + 1);
-        int nodeValue = (level % 2 == 1) ? root.key : -root.key;
+        int nodeValue = (level % 2 == 0) ? root.key : -root.key;
         return nodeValue + leftDiff + rightDiff;
     }
 
