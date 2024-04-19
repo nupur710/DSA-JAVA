@@ -27,18 +27,25 @@ public class BSTNode implements BinNode {
     }
 
     @Override
-    public BinNode left() {
+    public BSTNode left() {
         return left;
     }
 
+    public void setLeft(BSTNode left) {
+        this.left= left;
+    }
+
     @Override
-    public BinNode right() {
+    public BSTNode right() {
         return right;
+    }
+
+    public void setRight(BSTNode right) {
+        this.right= right;
     }
 
     @Override
     public boolean isLeaf() {
-        boolean isLeaf = (left == null || right == null) ? true : false;
-        return isLeaf;
+        return (left == null && right == null) ? true : false;
     }
 }
