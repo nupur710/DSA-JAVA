@@ -5,11 +5,16 @@ import java.util.Stack;
 public class ShuntingYardAlgorithm {
     //precedence of operators
      static int precedence(char operator) {
-        if(operator== '+' || operator== '-')
-            return 1;
-        else if(operator== '*' || operator== '/')
-            return 2;
-        else return 0;
+        switch (operator) {
+            case '+':
+            case '-':
+                return 1;
+            case '*':
+            case '/':
+                return 2;
+            default:
+                return 0;
+        }
     }
 
     //2 operators for operators and output
@@ -28,26 +33,33 @@ public class ShuntingYardAlgorithm {
      * stack
      */
     static String infixToPostfix(String infix) {
+        int j= 0;
         StringBuilder output= new StringBuilder();
         Stack<Character> operatorStack= new Stack<>();
         for(int i= 0; i<infix.length(); i++) {
             char ch= infix.charAt(i);
             if(Character.isDigit(ch)) {
-                output.append(ch);
+                StringBuilder number= new StringBuilder();
+                number.append(ch);
+                while(i+1 < infix.length() && Character.isDigit(infix.charAt(i+1))) {
+                    i++;
+                    number.append(infix.charAt(i));
+                }
+                output.append(number + " ");
             } else if(ch== '+' || ch== '-' || ch== '*' || ch== '/') {
                 while(!operatorStack.isEmpty() && operatorStack.peek() != '('
                 && precedence(operatorStack.peek()) >= precedence(ch)) {
-                    output.append(operatorStack.pop());
+                    output.append(operatorStack.pop() +" ");
                 } operatorStack.push(ch);
             } else if(ch== '(') {
                 operatorStack.push(ch);
             } else if(ch== ')') {
                 while(operatorStack.peek()!= '(') {
-                    output.append(operatorStack.pop());
+                    output.append(operatorStack.pop()+" ");
                 } operatorStack.pop();
             }
         } while(!operatorStack.isEmpty()) {
-            output.append(operatorStack.pop());
+            output.append(operatorStack.pop()+" ");
         } return output.toString();
     }
 
